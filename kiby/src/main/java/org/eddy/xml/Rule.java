@@ -40,6 +40,7 @@ public class Rule {
 	public void setParams(List<Param> params) {
 		this.params = params;
 	}
+	
 
 	/**
 	 * 字段
