@@ -6,9 +6,12 @@
 package org.eddy.spring;
 
 /**
- * @author Eddy
+ * @author Justice-love
  * 
  */
 public class MapedValidate {
 
+	public static void main(String[] args) {
+		
+	}
 }
