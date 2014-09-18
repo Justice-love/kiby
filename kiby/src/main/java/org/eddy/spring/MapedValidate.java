@@ -5,10 +5,13 @@
  */
 package org.eddy.spring;
 
+
+
 /**
  * @author Justice-love
- * 
+ *
  */
 public class MapedValidate {
 
+	
 }
