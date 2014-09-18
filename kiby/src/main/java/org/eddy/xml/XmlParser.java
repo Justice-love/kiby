@@ -14,10 +14,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * @author Justice-love
- *
+ * @author Eddy
+ * 
  */
 public class XmlParser {
 
@@ -34,6 +33,5 @@ public class XmlParser {
 
 		}
 	}
-	
-	
+
 }
