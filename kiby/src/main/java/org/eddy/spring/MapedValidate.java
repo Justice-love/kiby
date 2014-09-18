@@ -11,7 +11,4 @@ package org.eddy.spring;
  */
 public class MapedValidate {
 
-	public static void main(String[] args) {
-		System.out.println("头像测试");
-	}
 }
