@@ -71,6 +71,22 @@ public enum Algorithm {
 			return obj.equals(expression);
 		}
 	};
+	
+	public static Algorithm getByName(String name) {
+		switch (name) {
+		case "lessthan":
+			return lessthan;
+		case "morethan":
+			return morethan;
+		case "equal":
+			return equal;
+		case "regx":
+			return regx;
+		default:
+			return null;
+		}
+	}
+	
 
 	/**
 	 * 算法具体的验证函数

@@ -24,7 +24,23 @@ public class Rule {
 	 * 方法字段
 	 */
 	private List<Param> params;
-	
+
+	/**
+	 * 构造函数
+	 * 
+	 * @creatTime 下午5:22:39
+	 * @author Eddy
+	 */
+	public Rule() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Rule(String name, List<Param> params) {
+		super();
+		this.name = name;
+		this.params = params;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -40,14 +56,14 @@ public class Rule {
 	public void setParams(List<Param> params) {
 		this.params = params;
 	}
-	
 
 	/**
 	 * 字段
+	 * 
 	 * @author Eddy
-	 *
+	 * 
 	 */
-	public class Param {
+	public static class Param {
 		/**
 		 * 字段名
 		 */
@@ -64,30 +80,67 @@ public class Rule {
 		 * 抛出异常信息
 		 */
 		private String exception;
+
+		private String expect;
+
+		/**
+		 * 构造函数
+		 * 
+		 * @creatTime 下午5:19:22
+		 * @author Eddy
+		 */
+		public Param() {
+			// TODO Auto-generated constructor stub
+		}
+
+		public Param(String name, String type, Algorithm algorithm, String exception, String expect) {
+			super();
+			this.name = name;
+			this.type = type;
+			this.algorithm = algorithm;
+			this.exception = exception;
+			this.expect = expect;
+		}
+
 		public String getName() {
 			return name;
 		}
+
 		public void setName(String name) {
 			this.name = name;
 		}
+
 		public String getType() {
 			return type;
 		}
+
 		public void setType(String type) {
 			this.type = type;
 		}
+
 		public Algorithm getAlgorithm() {
 			return algorithm;
 		}
+
 		public void setAlgorithm(Algorithm algorithm) {
 			this.algorithm = algorithm;
 		}
+
 		public String getException() {
 			return exception;
 		}
+
 		public void setException(String exception) {
 			this.exception = exception;
 		}
-		
+
+		public String getExpect() {
+			return expect;
+		}
+
+		public void setExpect(String expect) {
+			this.expect = expect;
+		}
+
 	}
 }
