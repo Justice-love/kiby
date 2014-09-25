@@ -12,3 +12,5 @@ MORETHAN 大于
 LESSTHAN 小于
 EQUAL 相等
 NOTNULL  不为空
+
+目前不支持为同一个方法参数添加多个验证逻辑
