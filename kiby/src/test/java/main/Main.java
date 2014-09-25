@@ -6,18 +6,32 @@
 package main;
 
 import org.eddy.test.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author Eddy
- *
+ * 
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:/spring-common.xml" })
 public class Main {
 
-	public static void main(String[] args) {
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[] { "classpath:/spring-common.xml" });
-		Test test = (Test) applicationContext.getBean("test");
+	@Autowired
+	@Qualifier("test")
+	private Test test;
+
+
+	@org.junit.Test
+	public void test() {
 		test.test123("123", "456");
 	}
+
+	public void setTest(Test test) {
+		this.test = test;
+	}
+
 }

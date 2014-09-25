@@ -13,11 +13,13 @@ import org.eddy.param.ParamParser;
 import org.eddy.xml.Rule;
 import org.eddy.xml.Rule.Param;
 import org.eddy.xml.XmlParser;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Eddy
  * 
  */
+@Component("validateTemplate")
 public class ValidateTemplate {
 
 	private ConcurrentHashMap<String, ValidateExcute> cache = new ConcurrentHashMap<String, ValidateExcute>();

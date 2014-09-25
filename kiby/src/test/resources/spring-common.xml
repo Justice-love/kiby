@@ -22,4 +22,14 @@
 	<context:component-scan base-package="aop" />
 	<aop:aspectj-autoproxy />
 	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<bean id="aspectBean" class="org.eddy.aop.ValidateAspect" /> 
+    <aop:config>
+        <aop:aspect id="TestAspect" ref="aspectBean">
+            <!--配置com.spring.service包下所有类或接口的所有方法-->
+            <aop:pointcut id="businessService"
+                expression="execution(* org.eddy.test.Test.test123(..))" />
+            <aop:around pointcut-ref="businessService" method="validateAround"/>
+        </aop:aspect>
+    </aop:config>
+
 </beans>
