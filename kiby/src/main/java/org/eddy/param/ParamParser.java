@@ -32,7 +32,7 @@ public class ParamParser {
 	 * @author Eddy
 	 * @throws NotFoundException 
 	 */
-	public Map<String, String[]> param(Class<?> klass){
+	public static Map<String, String[]> param(Class<?> klass){
 		try {
 			CtClass cl = pool.get(klass.getName());
 			if (null == cl) {
@@ -62,7 +62,7 @@ public class ParamParser {
 		}
 	}
 	
-	CtClass[] paramType(Method method) throws NotFoundException {
+	static CtClass[] paramType(Method method) throws NotFoundException {
 		Class<?>[] types = method.getParameterTypes();
 		CtClass[] paramType = new CtClass[types.length];
 		for (int i = 0; i < paramType.length; i++) {

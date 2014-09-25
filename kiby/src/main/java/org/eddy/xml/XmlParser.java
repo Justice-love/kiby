@@ -30,7 +30,7 @@ import org.w3c.dom.NodeList;
  */
 public class XmlParser {
 
-	ConcurrentHashMap<String, Rule> cache = new ConcurrentHashMap<String, Rule>();
+	static ConcurrentHashMap<String, Rule> cache = new ConcurrentHashMap<String, Rule>();
 	Logger logger = LoggerFactory.getLogger(XmlParser.class);
 	private final String NAME = "name";
 	private final String TYPE = "type";
@@ -100,6 +100,10 @@ public class XmlParser {
 		}
 		cache.put(orderName, new Rule(orderName, list));
 
+	}
+	
+	public static Rule tableRule(String name) {
+		return cache.get(name);
 	}
 	
 }
