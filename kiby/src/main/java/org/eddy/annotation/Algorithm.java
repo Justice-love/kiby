@@ -70,7 +70,20 @@ public enum Algorithm {
 			super.checkParam(obj, expression);
 			return obj.equals(expression);
 		}
-	};
+	},
+	NOTNULL {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.eddy.annotation.Algorithm#match(java.lang.Object,
+		 * java.lang.Object)
+		 */
+		@Override
+		public boolean match(Object obj, Object expression) {
+			return obj != null;
+		}
+	}
+	;
 	
 	public static Algorithm getByName(String name) {
 		switch (name) {
@@ -103,7 +116,7 @@ public enum Algorithm {
 
 	private void checkParam(Object obj, Object expression) {
 		if (null == obj || null == expression) {
-			throw new NullPointerException("参数非空");
+			throw new NullPointerException("参数为空");
 		}
 	}
 }
