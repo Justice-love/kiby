@@ -26,7 +26,7 @@ public class ValidateExcute {
 	}
 
 	/**
-	 * 
+	 * 参数校验
 	 * @creatTime 下午2:38:31
 	 * @author Eddy
 	 */
