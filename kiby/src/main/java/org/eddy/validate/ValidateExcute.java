@@ -24,6 +24,11 @@ public class ValidateExcute {
 		this.values = values;
 		this.paramRule = paramRule;
 	}
+	
+	public void changeValidate(int index, Param param) {
+		if (paramRule.length <= index) throw new IllegalArgumentException("index out of bound");
+		paramRule[index] = param;
+	}
 
 	/**
 	 * 参数校验

@@ -121,6 +121,15 @@ public class Rule {
 			this.exception = exception;
 			this.expect = expect;
 		}
+		
+		
+
+		public Param(Algorithm algorithm, String exception, String expect) {
+			super();
+			this.algorithm = algorithm;
+			this.exception = exception;
+			this.expect = expect;
+		}
 
 		public String getName() {
 			return name;

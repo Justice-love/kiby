@@ -5,9 +5,11 @@
  */
 package org.eddy.validate;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.eddy.annotation.Validate;
 import org.eddy.annotation.ValidateRule;
 import org.eddy.param.ParamParser;
 import org.eddy.xml.Rule;
@@ -30,6 +32,7 @@ public class ValidateTemplate {
 		Class<?> parent = method.getDeclaringClass();
 		ValidateExcute excute = cache.get(new StringBuilder(parent.getName()).append("_").append(method.getName()).toString());
 		if (null == excute) {
+			//default validate
 			ValidateRule vrule = method.getAnnotation(ValidateRule.class);
 			if (vrule != null) {
 				Rule rule = XmlParser.tableRule(vrule.name());
@@ -39,9 +42,30 @@ public class ValidateTemplate {
 				String[] names = paramNameCache.get(new StringBuilder().append(parent.getName()).append("_").append(method.getName()).toString());
 				Param[] param = rule.takeParamsAsArray(names, method.getParameterTypes());
 				excute = new ValidateExcute(values, param);
-				cache.put(new StringBuilder(parent.getName()).append("_").append(method.getName()).toString(), excute);
 			}
+			
+			//validate null if null
+			if (null == excute) {
+				excute = new ValidateExcute(values, new Param[values.length]);
+			}
+			
+			//param validate
+			Annotation[][] annotationArr = method.getParameterAnnotations();
+			for (int i = 0; i < annotationArr.length; i++) {
+				for (int j = 0; j < annotationArr[i].length; j++) {
+					if (annotationArr[i][j] instanceof Validate) {
+						Validate v = (Validate) annotationArr[i][j];
+						Param p = new Param(v.algorithm(), v.exception(), v.expect());
+						excute.changeValidate(i, p);
+						continue;
+					}
+				}
+			}
+			
+			//put to cache
+			cache.put(new StringBuilder(parent.getName()).append("_").append(method.getName()).toString(), excute);
 		}
+		//excute
 		excute.validate();
 	}
 

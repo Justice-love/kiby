@@ -20,4 +20,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.PARAMETER)
 public @interface Validate {
 
+	Algorithm algorithm();
+	
+	String expect();
+	
+	String exception() default "param value not match";
 }
