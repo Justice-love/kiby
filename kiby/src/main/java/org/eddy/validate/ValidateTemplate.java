@@ -23,8 +23,8 @@ public class ValidateTemplate {
 	private ConcurrentHashMap<String, ValidateExcute> cache = new ConcurrentHashMap<String, ValidateExcute>();
 	private ConcurrentHashMap<String, String[]> paramNameCache = new ConcurrentHashMap<String, String[]>();
 
-	public void validate(Throwable throwable, Object[] values) {
-		Method method = getMethod(throwable);
+	public void validate(String className, String methodName, Object[] values) {
+		Method method = getMethod(className, methodName);
 		Class<?> parent = method.getDeclaringClass();
 		ValidateExcute excute = cache.get(new StringBuilder(parent.getName()).append("_").append(method.getName()).toString());
 		if (null == excute) {
@@ -32,7 +32,7 @@ public class ValidateTemplate {
 			if (vrule != null) {
 				Rule rule = XmlParser.tableRule(vrule.name());
 				if (!paramNameCache.containsKey(new StringBuilder().append(parent.getName()).append("_").append(method.getName()).toString())) {
-					paramNameCache.putAll(ParamParser.param(this.getClass()));
+					paramNameCache.putAll(ParamParser.param(parent));
 				}
 				String[] names = paramNameCache.get(new StringBuilder().append(parent.getName()).append("_").append(method.getName()).toString());
 				Param[] param = rule.takeParamsAsArray(names, method.getParameterTypes());
@@ -50,12 +50,17 @@ public class ValidateTemplate {
 	 * @creatTime 上午11:50:37
 	 * @author Eddy
 	 */
-	private Method getMethod(Throwable throwable) {
-		StackTraceElement[] el = throwable.getStackTrace();
-		String methodName = el[0].getMethodName();
-		for (Method method : this.getClass().getDeclaredMethods()) {
-			if (!method.isAccessible()) method.setAccessible(true);
-			if (method.getName().equals(methodName)) return method;
+	private Method getMethod(String className, String methodName) {
+		if (null == className || null == methodName) throw new IllegalArgumentException("className or methodName can not be null");
+		try {
+			for (Method method : Class.forName(className).getDeclaredMethods()) {
+				if (!method.isAccessible()) method.setAccessible(true);
+				if (method.getName().equals(methodName)) return method;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new IllegalArgumentException("not found this class or class is private: " + className);
 		}
 		return null;
 	}

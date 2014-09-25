@@ -8,9 +8,9 @@
 			exception="must more than 3" />
 	</rule>
 	<rule name="defaultRule2">
-		<param name="str1" type="com.java.lang.String" regx="str"
+		<param name="str1" type="java.lang.String" regx="456"
 			exception="must much str" />
-		<param name="id" type="com.java.lang.Integer" morethan="3"
+		<param name="id" type="java.lang.Integer" morethan="3"
 			exception="must more than 3" />
 	</rule>
 </rules>

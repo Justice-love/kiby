@@ -18,6 +18,7 @@ import org.eddy.annotation.Algorithm;
 import org.eddy.xml.Rule.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -28,6 +29,7 @@ import org.w3c.dom.NodeList;
  * @author Eddy
  * 
  */
+@Component("xmlParser")
 public class XmlParser {
 
 	static ConcurrentHashMap<String, Rule> cache = new ConcurrentHashMap<String, Rule>();
