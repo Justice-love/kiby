@@ -13,15 +13,13 @@ import org.eddy.xml.Rule.Param;
  */
 public class ValidateExcute {
 
-	private Object[] values;
 	private Param[] paramRule;
 
-	public ValidateExcute(Object[] values, Param[] paramRule) {
+	public ValidateExcute(Param[] paramRule) {
 		super();
-		if (null == values || null == paramRule || values.length != paramRule.length) {
+		if (null == paramRule) {
 			throw new IllegalArgumentException("param is not match!");
 		}
-		this.values = values;
 		this.paramRule = paramRule;
 	}
 	
@@ -35,7 +33,10 @@ public class ValidateExcute {
 	 * @creatTime 下午2:38:31
 	 * @author Eddy
 	 */
-	public void validate() {
+	public void validate(Object[] values) {
+		if (null == values || values.length != paramRule.length) {
+			throw new IllegalArgumentException("param is not match!");
+		}
 		for (int i = 0; i < paramRule.length; i++) {
 			if (null == paramRule[i]) continue;
 			if (!paramRule[i].getAlgorithm().match(values[i], paramRule[i].getExpect())) throw new IllegalArgumentException(paramRule[i].getException());

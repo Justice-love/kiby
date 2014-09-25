@@ -27,7 +27,10 @@ public class Main {
 
 	@org.junit.Test
 	public void test() {
-		test.test123("123", "456");
+		test.test123("123", "str");
+		test.test123("123", "str");
+		test.test123("123", "str");
+		test.test123("123", "str");
 	}
 
 	public void setTest(Test test) {

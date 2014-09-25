@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  */
 public enum Algorithm {
 
-	regx {
+	REGX {
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -30,7 +30,7 @@ public enum Algorithm {
 			return match.matches();
 		}
 	},
-	morethan {
+	MORETHAN {
 
 		/*
 		 * (non-Javadoc)
@@ -45,7 +45,7 @@ public enum Algorithm {
 		}
 
 	},
-	lessthan {
+	LESSTHAN {
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -58,7 +58,7 @@ public enum Algorithm {
 			return Integer.parseInt(obj.toString()) < Integer.parseInt(expression.toString());
 		}
 	},
-	equal {
+	EQUAL {
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -75,13 +75,13 @@ public enum Algorithm {
 	public static Algorithm getByName(String name) {
 		switch (name) {
 		case "lessthan":
-			return lessthan;
+			return LESSTHAN;
 		case "morethan":
-			return morethan;
+			return MORETHAN;
 		case "equal":
-			return equal;
+			return EQUAL;
 		case "regx":
-			return regx;
+			return REGX;
 		default:
 			return null;
 		}

@@ -41,12 +41,12 @@ public class ValidateTemplate {
 				}
 				String[] names = paramNameCache.get(new StringBuilder().append(parent.getName()).append("_").append(method.getName()).toString());
 				Param[] param = rule.takeParamsAsArray(names, method.getParameterTypes());
-				excute = new ValidateExcute(values, param);
+				excute = new ValidateExcute(param);
 			}
 			
 			//validate null if null
 			if (null == excute) {
-				excute = new ValidateExcute(values, new Param[values.length]);
+				excute = new ValidateExcute(new Param[values.length]);
 			}
 			
 			//param validate
@@ -66,7 +66,7 @@ public class ValidateTemplate {
 			cache.put(new StringBuilder(parent.getName()).append("_").append(method.getName()).toString(), excute);
 		}
 		//excute
-		excute.validate();
+		excute.validate(values);
 	}
 
 	/**
