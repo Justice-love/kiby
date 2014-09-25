@@ -6,8 +6,8 @@
 package org.eddy.xml;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
@@ -71,7 +71,7 @@ public class XmlParser {
 		NodeList children = order.getChildNodes();
 		if (null == children)
 			throw new NullPointerException();
-		List<Param> list = new ArrayList<Param>();
+		Map<String, Param> paramMap = new HashMap<String, Param>();
 		for (int i = 0; i < children.getLength(); i++) {
 			Node param = children.item(i);
 			if (param.getNodeType() == Node.ELEMENT_NODE) {
@@ -95,15 +95,19 @@ public class XmlParser {
 						break;
 					}
 				}
-				list.add(new Param(name, type, algo, exception, expect));
+				paramMap.put(name, new Param(name, type, algo, exception, expect));
 			}
 		}
-		cache.put(orderName, new Rule(orderName, list));
+		cache.put(orderName, new Rule(orderName, paramMap));
 
 	}
 	
 	public static Rule tableRule(String name) {
-		return cache.get(name);
+		Rule rule = cache.get(name);
+		if (null == rule) {
+			throw new IllegalArgumentException("rule not found, please che the rule.xml");
+		}
+		return rule;
 	}
 	
 }

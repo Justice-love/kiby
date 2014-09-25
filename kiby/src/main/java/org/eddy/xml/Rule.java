@@ -5,7 +5,7 @@
  */
 package org.eddy.xml;
 
-import java.util.List;
+import java.util.Map;
 
 import org.eddy.annotation.Algorithm;
 
@@ -23,7 +23,7 @@ public class Rule {
 	/**
 	 * 方法字段
 	 */
-	private List<Param> params;
+	private Map<String, Param> params;
 
 	/**
 	 * 构造函数
@@ -35,7 +35,7 @@ public class Rule {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Rule(String name, List<Param> params) {
+	public Rule(String name, Map<String, Param> params) {
 		super();
 		this.name = name;
 		this.params = params;
@@ -49,12 +49,32 @@ public class Rule {
 		this.name = name;
 	}
 
-	public List<Param> getParams() {
+	public Map<String, Param> getParams() {
 		return params;
 	}
 
-	public void setParams(List<Param> params) {
+	public void setParams(Map<String, Param> params) {
 		this.params = params;
+	}
+	
+	/**
+	 * 获取Param数组
+	 * @param paramNames
+	 * @param types
+	 * @return
+	 * @creatTime 下午1:47:49
+	 * @author Eddy
+	 */
+	public Param[] takeParamsAsArray(String[] paramNames, Class<?>[] types) {
+		if (null == paramNames || null == types || paramNames.length != types.length) {
+			return null;
+		}
+		Param[] result = new Param[paramNames.length];
+		for (int i = 0; i < paramNames.length; i++) {
+			Param p = params.get(paramNames[i]);
+			result[i] = p == null || !types[i].getName().equals(p.getType()) ? null : p;
+		}
+		return result;
 	}
 
 	/**
