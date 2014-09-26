@@ -2,15 +2,15 @@
 <rules>
 
 	<rule name="defaultRule">
-		<param name="str" type="com.java.lang.String" regx="str"
-			exception="must much str" />
-		<param name="id" type="com.java.lang.Integer" morethan="3"
-			exception="must more than 3" />
+		<param name="str" type="com.java.lang.String" regx="str" notnull="" exception="must much str" >
+			<equal value="str" exception="must equal str"/>
+		</param>
+		<param name="id" type="com.java.lang.Integer" morethan="3" exception="must more than 3" />
 	</rule>
 	<rule name="defaultRule2">
-		<param name="str1" type="java.lang.String" regx="123"
-			exception="must much str" />
-		<param name="id" type="java.lang.Integer" morethan="3"
-			exception="must more than 3" />
+		<param name="str1" type="java.lang.String" regx="\w*" exception="must much \w" >
+			<equal value="str" exception="must equal str"/>
+		</param>
+		<param name="id" type="java.lang.Integer" morethan="3" exception="must more than 3" />
 	</rule>
 </rules>

@@ -55,9 +55,8 @@ public class ValidateTemplate {
 				for (int j = 0; j < annotationArr[i].length; j++) {
 					if (annotationArr[i][j] instanceof Validate) {
 						Validate v = (Validate) annotationArr[i][j];
-						Param p = new Param(v.algorithm(), v.exception(), v.expect());
-						excute.changeValidate(i, p);
-						continue;
+						excute.enhanceValidate(i, v.algorithm(), v.exception(), v.expect());
+//						continue;
 					}
 				}
 			}

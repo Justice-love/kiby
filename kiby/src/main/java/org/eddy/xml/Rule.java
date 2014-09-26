@@ -6,8 +6,11 @@
 package org.eddy.xml;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eddy.annotation.Algorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Eddy
@@ -56,9 +59,10 @@ public class Rule {
 	public void setParams(Map<String, Param> params) {
 		this.params = params;
 	}
-	
+
 	/**
 	 * 获取Param数组
+	 * 
 	 * @param paramNames
 	 * @param types
 	 * @return
@@ -84,6 +88,8 @@ public class Rule {
 	 * 
 	 */
 	public static class Param {
+		
+		Logger logger = LoggerFactory.getLogger(Param.class);
 		/**
 		 * 字段名
 		 */
@@ -92,16 +98,41 @@ public class Rule {
 		 * 字段类型
 		 */
 		private String type;
-		/**
-		 * 算法
-		 */
-		private Algorithm algorithm;
+
 		/**
 		 * 抛出异常信息
 		 */
 		private String exception;
 
-		private String expect;
+		private Map<Algorithm, String> algorithms;
+
+		/**
+		 * 验证方法
+		 * @param obj
+		 * @creatTime 上午10:00:00
+		 * @author Eddy
+		 */
+		public void match(Object obj) {
+			for ( Entry<Algorithm, String> entry : algorithms.entrySet()) {
+				if (!entry.getKey().match(obj, entry.getValue())) {
+					logger.error("not match " + entry.getKey().name() + " expect: " + entry.getValue() + " value: " + obj);
+					throw new IllegalArgumentException(entry.getKey().getException() == null ? exception : entry.getKey().getException());
+				}
+				logger.debug("value: " + obj + " match " + entry.getKey().name());
+			}
+		}
+
+		/**
+		 * 插入新验证表达式
+		 * 
+		 * @param key
+		 * @param value
+		 * @creatTime 上午9:53:42
+		 * @author Eddy
+		 */
+		public void put(Algorithm key, String value) {
+			algorithms.put(key, value);
+		}
 
 		/**
 		 * 构造函数
@@ -113,22 +144,25 @@ public class Rule {
 			// TODO Auto-generated constructor stub
 		}
 
-		public Param(String name, String type, Algorithm algorithm, String exception, String expect) {
+		public Param(String name, String type, String exception, Map<Algorithm, String> algorithms) {
 			super();
 			this.name = name;
 			this.type = type;
-			this.algorithm = algorithm;
 			this.exception = exception;
-			this.expect = expect;
+			this.algorithms = algorithms;
 		}
-		
-		
 
-		public Param(Algorithm algorithm, String exception, String expect) {
+		public Param(Map<Algorithm, String> algorithms) {
 			super();
-			this.algorithm = algorithm;
-			this.exception = exception;
-			this.expect = expect;
+			this.algorithms = algorithms;
+		}
+
+		public Map<Algorithm, String> getAlgorithms() {
+			return algorithms;
+		}
+
+		public void setAlgorithms(Map<Algorithm, String> algorithms) {
+			this.algorithms = algorithms;
 		}
 
 		public String getName() {
@@ -147,28 +181,12 @@ public class Rule {
 			this.type = type;
 		}
 
-		public Algorithm getAlgorithm() {
-			return algorithm;
-		}
-
-		public void setAlgorithm(Algorithm algorithm) {
-			this.algorithm = algorithm;
-		}
-
 		public String getException() {
 			return exception;
 		}
 
 		public void setException(String exception) {
 			this.exception = exception;
-		}
-
-		public String getExpect() {
-			return expect;
-		}
-
-		public void setExpect(String expect) {
-			this.expect = expect;
 		}
 
 	}

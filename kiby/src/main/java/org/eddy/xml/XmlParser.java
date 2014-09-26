@@ -77,8 +77,8 @@ public class XmlParser {
 		for (int i = 0; i < children.getLength(); i++) {
 			Node param = children.item(i);
 			if (param.getNodeType() == Node.ELEMENT_NODE) {
-				String name = "", type = "", exception = "", expect="";
-				Algorithm algo = null;
+				String name = "", type = "", exception = "";
+				Map<Algorithm, String> algorithms = new HashMap<Algorithm, String>();
 				NamedNodeMap map = param.getAttributes();
 				for (int j = 0; j < map.getLength(); j++) {
 					switch (map.item(j).getNodeName()) {
@@ -92,22 +92,50 @@ public class XmlParser {
 						exception = map.item(j).getNodeValue();
 						break;
 					default:
-						algo = Algorithm.getByName(map.item(j).getNodeName());
-						expect = map.item(j).getNodeValue();
+						algorithms.put(Algorithm.getByName(map.item(j).getNodeName()), map.item(j).getNodeValue());
 						break;
 					}
 				}
-				paramMap.put(name, new Param(name, type, algo, exception, expect));
+				Param p = new Param(name, type, exception, algorithms);
+				//
+				parseExpression(param, p);
+				
+				//添加验证表达式对象
+				paramMap.put(name, p);
 			}
 		}
 		cache.put(orderName, new Rule(orderName, paramMap));
 
 	}
 	
+	/**
+	 * 解析表达式 notnull|regx|morethan|lessthan|equal
+	 * @param param
+	 * @param p
+	 * @creatTime 上午9:13:58
+	 * @author Eddy
+	 */
+	private void parseExpression(Node param, Param p) {
+		NodeList children = param.getChildNodes();
+		if (children != null) {
+			for (int i = 0; i < children.getLength(); i++) {
+				Node node = children.item(i);
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element element = (Element) node;
+					Algorithm algorithm = Algorithm.getByName(element.getTagName());
+					if (element.hasAttribute("exception")) {
+						algorithm.setException(element.getAttribute("exception"));
+					}
+					p.put(algorithm, element.getAttribute("value"));
+				}
+			}
+		}
+	}
+
 	public static Rule tableRule(String name) {
 		Rule rule = cache.get(name);
 		if (null == rule) {
-			throw new IllegalArgumentException("rule not found, please che the rule.xml");
+			throw new IllegalArgumentException("rule not found, please check the rule.xml");
 		}
 		return rule;
 	}

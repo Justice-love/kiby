@@ -5,6 +5,8 @@
  */
 package main;
 
+import java.util.regex.Pattern;
+
 import org.eddy.test.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +29,16 @@ public class Main {
 
 	@org.junit.Test
 	public void test() {
-		test.test123("str", "str");
+		test.test123("str", "123");
 		test.test123("123", "str");
 	}
 
 	public void setTest(Test test) {
 		this.test = test;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(Pattern.compile("[a-zA-Z_0-9]*").matcher("s").matches());
 	}
 
 }

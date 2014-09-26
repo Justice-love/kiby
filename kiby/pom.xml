@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eddy</groupId>
 	<artifactId>kiby</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.13</version>
 	<name>kiby</name>
 	<description>方法参数验证框架</description>
 	<properties>
@@ -108,7 +108,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5</version>
+				<version>0.13</version>
 				<configuration>
 					<tagNameFormat>v@{project.version}</tagNameFormat>
 				</configuration>

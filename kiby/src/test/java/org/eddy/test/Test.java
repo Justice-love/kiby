@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class Test {
 
 	@ValidateRule(name="defaultRule2")
-	public void test123(@Validate(algorithm = Algorithm.REGX, expect = "str") String str1, @Validate(algorithm = Algorithm.REGX, expect = "str") String str2) {
+	public void test123(@Validate(algorithm = Algorithm.NOTNULL, expect = "") String str1, @Validate(algorithm = Algorithm.REGX, expect = "\\w*")String str2) {
 		System.out.println("参数验证框架测试" + str1 + "   " + str2);
 	}
 }

@@ -5,6 +5,10 @@
  */
 package org.eddy.validate;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eddy.annotation.Algorithm;
 import org.eddy.xml.Rule.Param;
 
 /**
@@ -39,9 +43,32 @@ public class ValidateExcute {
 		}
 		for (int i = 0; i < paramRule.length; i++) {
 			if (null == paramRule[i]) continue;
-			if (!paramRule[i].getAlgorithm().match(values[i], paramRule[i].getExpect())) throw new IllegalArgumentException(paramRule[i].getException());
+//			if (!paramRule[i].getAlgorithm().match(values[i], paramRule[i].getExpect())) throw new IllegalArgumentException(paramRule[i].getException());
+			paramRule[i].match(values[i]);
 		}
 		
+	}
+
+	/**
+	 * 
+	 * @param i
+	 * @param algorithm
+	 * @param exception
+	 * @param expect
+	 * @creatTime 上午9:47:00
+	 * @author Eddy
+	 */
+	public void enhanceValidate(int index, Algorithm algorithm, String exception, String expect) {
+		if (paramRule.length <= index) throw new IllegalArgumentException("index out of bound");
+		algorithm.setException(exception);
+		Param p = paramRule[index];
+		if (null == p) {
+			Map<Algorithm, String> alg = new HashMap<Algorithm, String>();
+			alg.put(algorithm, expect);
+			paramRule[index] = new Param(alg);
+		} else {
+			p.put(algorithm, expect);
+		}
 	}
 
 }

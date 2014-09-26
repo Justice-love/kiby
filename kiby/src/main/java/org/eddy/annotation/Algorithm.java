@@ -82,9 +82,8 @@ public enum Algorithm {
 		public boolean match(Object obj, Object expression) {
 			return obj != null;
 		}
-	}
-	;
-	
+	};
+
 	public static Algorithm getByName(String name) {
 		switch (name) {
 		case "lessthan":
@@ -95,14 +94,15 @@ public enum Algorithm {
 			return EQUAL;
 		case "regx":
 			return REGX;
+		case "notnull":
+			return NOTNULL;
 		default:
 			return null;
 		}
 	}
-	
 
 	/**
-	 * 算法具体的验证函数
+	 * 算法具体的验证函数 true: 验证通过; false: 验证失败
 	 * 
 	 * @param obj
 	 * @param expression
@@ -119,4 +119,15 @@ public enum Algorithm {
 			throw new NullPointerException("参数为空");
 		}
 	}
+
+	private String exception = null;
+
+	public void setException(String exception) {
+		this.exception = exception;
+	}
+
+	public String getException() {
+		return exception;
+	}
+
 }
