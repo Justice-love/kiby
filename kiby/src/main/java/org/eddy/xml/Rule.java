@@ -133,6 +133,10 @@ public class Rule {
 		public void put(Algorithm key, String value) {
 			algorithms.put(key, value);
 		}
+		
+		public void clear() {
+			algorithms.clear();
+		}
 
 		/**
 		 * 构造函数

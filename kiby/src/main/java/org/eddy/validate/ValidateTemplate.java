@@ -9,6 +9,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.eddy.annotation.ClearValidate;
 import org.eddy.annotation.Validate;
 import org.eddy.annotation.ValidateRule;
 import org.eddy.param.ParamParser;
@@ -52,12 +53,18 @@ public class ValidateTemplate {
 			//param validate
 			Annotation[][] annotationArr = method.getParameterAnnotations();
 			for (int i = 0; i < annotationArr.length; i++) {
+				Validate v = null;
 				for (int j = 0; j < annotationArr[i].length; j++) {
 					if (annotationArr[i][j] instanceof Validate) {
-						Validate v = (Validate) annotationArr[i][j];
-						excute.enhanceValidate(i, v.algorithm(), v.exception(), v.expect());
+						v = (Validate) annotationArr[i][j];
 //						continue;
 					}
+					if (annotationArr[i][j] instanceof ClearValidate) {
+						excute.clear(i);
+					}
+				}
+				if (v != null) {
+					excute.enhanceValidate(i, v.algorithm(), v.exception(), v.expect());
 				}
 			}
 			

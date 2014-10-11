@@ -48,6 +48,14 @@ public class ValidateExcute {
 		}
 		
 	}
+	
+	public void clear(int index) {
+		if (paramRule.length <= index) throw new IllegalArgumentException("index out of bound");
+		Param p = paramRule[index];
+		if (p != null) {
+			p.clear();
+		}
+	}
 
 	/**
 	 * 
