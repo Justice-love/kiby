@@ -29,8 +29,8 @@ public class Main {
 
 	@org.junit.Test
 	public void test() {
-		test.test123("str", "123");
-		test.test123("123", "str");
+		test.test124("123");
+//		test.test123("123", "str");
 	}
 	
 //	@org.junit.Test
