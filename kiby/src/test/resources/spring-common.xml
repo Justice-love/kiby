@@ -26,7 +26,7 @@
     <aop:config>
         <aop:aspect id="TestAspect" ref="aspectBean">
             <aop:pointcut id="businessService"
-                expression="execution(* org.eddy.test.Test.test123(..))" />
+                expression="execution(* org.eddy.test.Test.*(..))" />
             <aop:around pointcut-ref="businessService" method="validateAround"/>
         </aop:aspect>
     </aop:config>

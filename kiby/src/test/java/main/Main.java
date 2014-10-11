@@ -27,10 +27,15 @@ public class Main {
 	private Test test;
 
 
-	@org.junit.Test
+//	@org.junit.Test
 	public void test() {
 		test.test123("str", "123");
 		test.test123("123", "str");
+	}
+	
+	@org.junit.Test
+	public void test2() {
+		test.test("1", "2");
 	}
 
 	public void setTest(Test test) {
