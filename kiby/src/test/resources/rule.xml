@@ -13,4 +13,9 @@
 		</param>
 		<param name="id" type="java.lang.Integer" morethan="3" exception="must more than 3" />
 	</rule>
+	<rule name="defaultRule3">
+		<param name="in" type="java.lang.String">
+			<in value="1,2,3" exception="must in 1 2 3"/>
+		</param>
+	</rule>
 </rules>

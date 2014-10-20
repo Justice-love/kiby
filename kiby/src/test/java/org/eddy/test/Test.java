@@ -28,7 +28,12 @@ public class Test {
 		System.out.println("参数验证框架测试" + str1);
 	}
 	
-	public void test(String str1, String str2) {
-		System.out.println("参数验证框架测试" + str1 + "   " + str2);
+	@ValidateRule(name="defaultRule3")
+	public void test2(String in) {
+		System.out.println("参数验证框架测试" + in);
+	}
+	
+	public void test3(@Validate(algorithm=Algorithm.IN, exception="must in a,b,c", expect = "a,b,c") String in) {
+		System.out.println("参数验证框架测试" + in);
 	}
 }

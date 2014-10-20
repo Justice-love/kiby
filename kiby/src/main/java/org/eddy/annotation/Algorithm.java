@@ -5,6 +5,9 @@
  */
 package org.eddy.annotation;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,6 +19,11 @@ import java.util.regex.Pattern;
  */
 public enum Algorithm {
 
+	/**
+	 * 正则表达式规则
+	 * @author Eddy
+	 *
+	 */
 	REGX {
 		/*
 		 * (non-Javadoc)
@@ -30,6 +38,11 @@ public enum Algorithm {
 			return match.matches();
 		}
 	},
+	/**
+	 * 大于规则
+	 * @author Eddy
+	 *
+	 */
 	MORETHAN {
 
 		/*
@@ -45,6 +58,11 @@ public enum Algorithm {
 		}
 
 	},
+	/**
+	 * 小于规则
+	 * @author Eddy
+	 *
+	 */
 	LESSTHAN {
 		/*
 		 * (non-Javadoc)
@@ -58,6 +76,11 @@ public enum Algorithm {
 			return Integer.parseInt(obj.toString()) < Integer.parseInt(expression.toString());
 		}
 	},
+	/**
+	 * equal规则
+	 * @author Eddy
+	 *
+	 */
 	EQUAL {
 		/*
 		 * (non-Javadoc)
@@ -71,6 +94,11 @@ public enum Algorithm {
 			return obj.equals(expression);
 		}
 	},
+	/**
+	 * 不为空规则
+	 * @author Eddy
+	 *
+	 */
 	NOTNULL {
 		/*
 		 * (non-Javadoc)
@@ -82,22 +110,42 @@ public enum Algorithm {
 		public boolean match(Object obj, Object expression) {
 			return obj != null;
 		}
+	},
+	
+	/**
+	 * in规则
+	 * @author Eddy
+	 *
+	 */
+	IN {
+		/* (non-Javadoc)
+		 * @see org.eddy.annotation.Algorithm#match(java.lang.Object, java.lang.Object)
+		 */
+		@Override
+		public boolean match(Object obj, Object expression) {
+			if (null == expression) throw new NullPointerException();
+			Set<String> set = new HashSet<>(Arrays.asList(expression.toString().split(",")));
+			if (obj == null) return false;
+			return set.contains(obj);
+		}
 	};
 
 	public static Algorithm getByName(String name) {
 		switch (name) {
-		case "lessthan":
-			return LESSTHAN;
-		case "morethan":
-			return MORETHAN;
-		case "equal":
-			return EQUAL;
-		case "regx":
-			return REGX;
-		case "notnull":
-			return NOTNULL;
-		default:
-			return null;
+			case "lessthan":
+				return LESSTHAN;
+			case "morethan":
+				return MORETHAN;
+			case "equal":
+				return EQUAL;
+			case "regx":
+				return REGX;
+			case "notnull":
+				return NOTNULL;
+			case "in":
+				return IN;
+			default:
+				return null;
 		}
 	}
 
