@@ -14,3 +14,4 @@ MORETHAN 大于<br/>
 LESSTHAN 小于<br/>
 EQUAL 相等<br/>
 NOTNULL  不为空<br/>
+IN  必须匹配其中一个元素<br/>
